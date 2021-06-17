@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <script type="text/javascript">
+        </script>
+
+    </head>
+    <body class="body_background">
+        <div align="center">
+            <h1>Paint</h1>
+            <script>
+            var mouseEvent - "empty";
+
+
+                canvas = document.getElementById('myCanvas');
+                ctx = canvas.getContext("2d");
+                
+                Color = "black";
+                width_of_line = 2;
+                canvas.addEventListener("mousedown",my_mousedown);
+                
+                function my_mousedown(e)
+                {
+                    Color = document.getElementById("color").value;
+                    width_of_line = document.getElementById("width_of_line").value;
+                    radius = document.getElementById("radius").value;
+                    mouseEvent = "mouseDown";
+                }
+                
+                canvas.addEventListener("mousemove", my_mousemove);
+                function my_mousemove(e)
+                {
+                    current_position_of_mouse_x = e.clientX - canvas.offsetLeft;
+                    current_position_of_mouse_y = e.clienty -canvas.offsetTop;
+                
+                    if (mouseEvent == "mousedown") {
+                        console.log("current position of x and y coordinates = ");
+                        console.log("x = "+ current_position_of_mouse_x + "y =  " + current_position_of_mouse_y);
+                        ctx.beginPath();
+                        ctx.strokeStyle = Color;
+                        ctx.linewidth =  width_of_line;
+                        ctx.arc(current_position_of_mouse_x, current_position_of_mouse_y, radius , 0 , 2 * Math.PI);
+                        ctx.stroke();   
+                    }
+                }
+                
+                canvas.addEventListener("mouseup", my_mouseup);
+                function my_mouseup(e)
+                {
+                    mouseEvent = "mouseUP";
+                }
+                canvas.addEventListener("mouseleave", my_mouseleave);
+                function my_mouseleave(e)
+                {
+                    mouseEvent = "mouseleave";
+                }
+                
+                function clearArea() {
+                    ctx.clearRect(0,0, ctx.canvas.width, ctx.canvas.height);
+                }</script>
+
+            <canvas id="myCanvas" width="800" height="400"></canvas>
+            <br><br>
+
+            <span>Radius - </span>
+            <input type="text" id="radius" value="20">
+
+            <span>Color - </span>
+            <input type="text" id="color" value="Red">
+
+            <span>Width of the line - </span>
+            <input type="text" id="width_of_line" value="2">
+            <br>
+            <br>
+            <button onclick="clearArea();">Clear Area</button>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>
